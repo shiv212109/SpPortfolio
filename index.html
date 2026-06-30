@@ -718,6 +718,153 @@
             transform: translateY(-3px);
         }
 
+        /* ===== Image Gallery (Auto Scroll) Section ===== */
+        .gallery-section {
+            background-color: var(--darker);
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: -60px auto 50px;
+        }
+
+        .gallery-scroll-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        }
+
+        .gallery-track {
+            display: flex;
+            width: max-content;
+            gap: 20px;
+            animation: gallery-scroll 90s linear infinite;
+        }
+
+        .gallery-scroll-wrapper:hover .gallery-track {
+            animation-play-state: paused;
+        }
+
+        .gallery-track.row-reverse {
+            animation-direction: reverse;
+            animation-duration: 100s;
+        }
+
+        .gallery-item {
+            flex-shrink: 0;
+            width: 220px;
+            height: 150px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+
+        .gallery-item::after {
+            content: '\f00e';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: rgba(108, 99, 255, 0.4);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @keyframes gallery-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Lightbox for gallery */
+        .gallery-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 20, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .gallery-lightbox.active {
+            display: flex;
+        }
+
+        .gallery-lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .gallery-lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .gallery-lightbox-close:hover {
+            background: var(--primary);
+            transform: rotate(90deg);
+        }
+
         /* Contact Section */
         .contact {
             background-color: var(--dark);
@@ -1007,6 +1154,15 @@
                 width: 100px;
                 height: 60px;
             }
+
+            .gallery-item {
+                width: 160px;
+                height: 110px;
+            }
+
+            .gallery-subtitle {
+                margin-top: -40px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1054,6 +1210,15 @@
             .youtube-stats {
                 flex-direction: column;
             }
+
+            .gallery-item {
+                width: 130px;
+                height: 90px;
+            }
+
+            .gallery-section {
+                padding: 70px 0;
+            }
         }
 
         @media (max-width: 400px) {
@@ -1067,6 +1232,11 @@
             
             .video-player iframe {
                 height: 200px;
+            }
+
+            .gallery-item {
+                width: 110px;
+                height: 80px;
             }
         }
     </style>
@@ -1084,6 +1254,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="https://www.youtube.com/@spconcept819">YouTube</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -1108,7 +1279,7 @@
             </div>
             <div class="hero-image">
                 <div class="responsive-img-container">
-                    <img src="SP Logo.png" alt="Sp Yadav" class="responsive-img">
+                    <img src="Collaboration Proposal.png" alt="Sp Yadav" class="responsive-img">
                 </div>
             </div>
         </div>
@@ -1144,6 +1315,7 @@
                         <div class="skill">C</div>
                         <div class="skill">Android Studio</div>
                         <div class="skill">Responsive Design</div>
+                        <div class="skill">Video Editing </div>
                     </div>
                 </div>
             </div>
@@ -1179,21 +1351,21 @@
                         <div class="stat-icon">
                             <i class="fab fa-youtube"></i>
                         </div>
-                        <div class="stat-number">2</div>
+                        <div class="stat-number">11</div>
                         <div class="stat-label">Subscribers</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">
                             <i class="fas fa-play-circle"></i>
                         </div>
-                        <div class="stat-number">8</div>
+                        <div class="stat-number">50</div>
                         <div class="stat-label">Videos</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">
                             <i class="fas fa-eye"></i>
                         </div>
-                        <div class="stat-number">350</div>
+                        <div class="stat-number">10,156 </div>
                         <div class="stat-label">Views</div>
                     </div>
                     <div class="stat-card">
@@ -1290,6 +1462,30 @@
             </div>
         </div>
     </section>
+
+    <!-- Image Gallery (Auto Scroll) Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Image Gallery</h2>
+            </div>
+            <p class="gallery-subtitle">A scrolling showcase of moments, designs and snapshots — hover to pause, click any image to view full size.</p>
+        </div>
+        <div class="gallery-rows">
+            <div class="gallery-scroll-wrapper">
+                <div class="gallery-track" id="gallery-track-1"></div>
+            </div>
+            <div class="gallery-scroll-wrapper">
+                <div class="gallery-track row-reverse" id="gallery-track-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Lightbox -->
+    <div class="gallery-lightbox" id="gallery-lightbox">
+        <div class="gallery-lightbox-close" id="gallery-lightbox-close"><i class="fas fa-times"></i></div>
+        <img src="" alt="Preview" id="gallery-lightbox-img">
+    </div>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
@@ -1578,8 +1774,92 @@
         // Initialize image optimization
         window.addEventListener('load', optimizeImages);
         window.addEventListener('resize', optimizeImages);
+
+        /* ===========================================================
+           IMAGE GALLERY (50 LOCAL IMAGES, AUTO-SCROLLING, RESPONSIVE)
+           - Loads image1.png, image2.png ... image50.png from the SAME
+             folder as this HTML file (simply place your images there)
+           - Images are split into 2 rows (25 each) that auto-scroll in
+             opposite directions (CSS animation), pause on hover
+           - Track is duplicated so the loop is seamless
+           - Click any image to open it in a lightbox
+           =========================================================== */
+        (function () {
+            // Apni images is HTML file ke SAME folder me rakho aur
+            // unke naam image1.png, image2.png, image3.png ... is pattern me hone chahiye.
+            // Agar aapki images kisi sub-folder (jaise "images/") me hain to
+            // neeche `image${i}.png` ko `images/image${i}.png` kar dena.
+            const TOTAL_IMAGES = 100; // aapke paas jitni images hain utna number daalo
+            const galleryImages = [];
+
+            for (let i = 1; i <= TOTAL_IMAGES; i++) {
+                galleryImages.push({
+                    src: `image${i}.png`,
+                    alt: `Gallery image ${i}`
+                });
+            }
+
+            const row1Images = galleryImages.slice(0, 25);
+            const row2Images = galleryImages.slice(25, 50);
+
+            function buildTrack(trackId, images) {
+                const track = document.getElementById(trackId);
+                if (!track) return;
+
+                // Duplicate the images so the CSS translateX(-50%) loop is seamless
+                const doubledImages = images.concat(images);
+
+                doubledImages.forEach((imgData) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+
+                    const img = document.createElement('img');
+                    img.src = imgData.src;
+                    img.alt = imgData.alt;
+                    img.loading = 'lazy';
+                    img.addEventListener('error', function () {
+                        img.src = 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=60';
+                    });
+
+                    item.appendChild(img);
+
+                    item.addEventListener('click', () => {
+                        openLightbox(imgData.src, imgData.alt);
+                    });
+
+                    track.appendChild(item);
+                });
+            }
+
+            buildTrack('gallery-track-1', row1Images);
+            buildTrack('gallery-track-2', row2Images);
+
+            // Lightbox logic
+            const lightbox = document.getElementById('gallery-lightbox');
+            const lightboxImg = document.getElementById('gallery-lightbox-img');
+            const lightboxClose = document.getElementById('gallery-lightbox-close');
+
+            function openLightbox(src, alt) {
+                lightboxImg.src = src;
+                lightboxImg.alt = alt;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        })();
     </script>
 </body>
 
 </html>
-
